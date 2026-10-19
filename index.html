@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chatbot para negocios</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f2f5f9; margin: 0; padding: 30px; }
+    .chat { max-width: 480px; margin: auto; background: white; border-radius: 14px; padding: 20px; }
+    h1 { color: #1769aa; font-size: 22px; }
+    #mensajes { height: 300px; overflow-y: auto; border: 1px solid #ddd; padding: 12px; margin: 16px 0; }
+    .mensaje { margin: 10px 0; }
+    input { box-sizing: border-box; width: 75%; padding: 12px; }
+    button { padding: 12px; background: #1769aa; color: white; border: 0; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <main class="chat">
+    <h1>Asistente del negocio</h1>
+    <p>¡Hola! Pregúntame por nuestros productos, horarios o ubicación.</p>
+    <div id="mensajes"></div>
+    <input id="pregunta" placeholder="Escribe tu pregunta">
+    <button onclick="enviar()">Enviar</button>
+  </main>
+  
+  <script>
+    function enviar() {
+      const campo = document.getElementById("pregunta");
+      const pregunta = campo.value.trim();
+      if (!pregunta) return;
+
+      const mensajes = document.getElementById("mensajes");
+      const mensajeUsuario = document.createElement("p");
+      mensajeUsuario.className = "mensaje";
+      mensajeUsuario.textContent = "Tú: " + pregunta;
+      mensajes.appendChild(mensajeUsuario);
+
+      const texto = pregunta.toLowerCase();
+      let respuesta;
+
+      if (texto.includes("horario") || texto.includes("abren")) {
+        respuesta = "Nuestro horario de prueba es de lunes a sábado, de 8 a. m. a 6 p. m.";
+      } else if (texto.includes("producto") || texto.includes("precio")) {
+        respuesta = "Para esta demostración, consulta nuestros productos directamente con el negocio.";
+      } else if (texto.includes("ubicación") || texto.includes("dirección")) {
+        respuesta = "La dirección de prueba es: escribe aquí la dirección del negocio.";
+      } else {
+        respuesta = "No tengo esa respuesta todavía. En una próxima versión me conectarán a una IA.";
+      }
+
+      const mensajeBot = document.createElement("p");
+      mensajeBot.className = "mensaje";
+      mensajeBot.textContent = "Chatbot: " + respuesta;
+      mensajes.appendChild(mensajeBot);
+
+      campo.value = "";
+      mensajes.scrollTop = mensajes.scrollHeight;
+    }
+  </script>
+</body>
+</html>
+
